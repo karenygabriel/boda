@@ -1,0 +1,73 @@
+.landing-page {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Entrance animation */
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.landing-page.exiting {
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none;
+}
+
+/* Full-screen background image */
+.landing-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.landing-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(139, 0, 60, 0.45);
+}
+
+.landing-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.landing-enter-btn {
+    padding: 1rem 3.5rem;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    border-radius: 50px;
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: background 0.35s ease, border-color 0.35s ease, transform 0.2s ease;
+    backdrop-filter: blur(4px);
+}
+
+.landing-enter-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: #fff;
+    transform: translateY(-3px);
+}
+
+.landing-names {
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin: 0;
+}

@@ -1,0 +1,532 @@
+/* ── Section layout ──────────────────────────────────────── */
+.rsvp-section {
+    padding: 5rem 2rem 6rem;
+    background: linear-gradient(160deg, #FFF0F5 0%, #fde8f0 100%);
+    display: flex;
+    justify-content: center;
+}
+
+.rsvp-container {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow:
+        0 2px 4px rgba(219, 112, 147, 0.06),
+        0 12px 40px rgba(219, 112, 147, 0.12),
+        0 0 0 1px rgba(219, 112, 147, 0.1);
+    max-width: 640px;
+    width: 100%;
+    transition: box-shadow 0.4s ease;
+}
+
+.rsvp-container--success {
+    box-shadow:
+        0 2px 4px rgba(219, 112, 147, 0.08),
+        0 20px 60px rgba(219, 112, 147, 0.18),
+        0 0 0 1px rgba(219, 112, 147, 0.12);
+}
+
+/* ── Title ───────────────────────────────────────────────── */
+.rsvp-title {
+    text-align: center;
+    color: var(--accent);
+    font-size: 2.2rem;
+    margin: 0 0 2rem;
+    letter-spacing: -0.01em;
+}
+
+/* ── Progress Bar ────────────────────────────────────────── */
+.progress-wrapper {
+    margin-bottom: 2.5rem;
+    padding: 0 0.5rem;
+}
+
+.progress-bar-track {
+    position: relative;
+    height: 3px;
+    background: rgba(219, 112, 147, 0.18);
+    border-radius: 99px;
+    margin: 0 1rem;
+}
+
+.progress-bar-fill {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #DB7093, #c2547a);
+    border-radius: 99px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-dot {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+}
+
+.progress-dot-index {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    background: white;
+    border: 2px solid rgba(219, 112, 147, 0.25);
+    color: #aaa;
+    transition: all 0.35s ease;
+}
+
+.progress-dot.done .progress-dot-index {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+}
+
+.progress-dot.current .progress-dot-index {
+    background: white;
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(219, 112, 147, 0.15);
+}
+
+.progress-dot-label {
+    position: absolute;
+    top: calc(100% + 14px);
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #bbb;
+    white-space: nowrap;
+    transition: color 0.35s;
+}
+
+.progress-dot.done .progress-dot-label,
+.progress-dot.current .progress-dot-label {
+    color: var(--accent);
+}
+
+/* ── Form structure ──────────────────────────────────────── */
+.rsvp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.form-step {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    animation: fadeSlideIn 0.35s ease both;
+}
+
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Step prompts ────────────────────────────────────────── */
+.step-prompt {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--text-dark);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.step-subprompt {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: -0.6rem 0 0;
+}
+
+/* ── Form group / input ──────────────────────────────────── */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.form-group input {
+    padding: 0.9rem 1rem;
+    border: 1.5px solid #e8d5de;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 1rem;
+    background: white;
+    color: var(--text-dark);
+    transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(219, 112, 147, 0.12);
+}
+
+/* ── Meal cards ──────────────────────────────────────────── */
+.meal-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.meal-card {
+    background: white;
+    border: 2px solid #eee;
+    border-radius: 16px;
+    padding: 1.6rem 1.2rem 1.2rem;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.25s, transform 0.22s, box-shadow 0.25s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+}
+
+.meal-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(219, 112, 147, 0.06) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.25s;
+}
+
+.meal-card:hover {
+    border-color: rgba(219, 112, 147, 0.45);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(219, 112, 147, 0.1);
+}
+
+.meal-card:hover::before {
+    opacity: 1;
+}
+
+.meal-card.active {
+    border-color: var(--accent);
+    background: rgba(219, 112, 147, 0.05);
+    box-shadow: 0 0 0 4px rgba(219, 112, 147, 0.1), 0 8px 24px rgba(219, 112, 147, 0.12);
+    transform: translateY(-3px);
+}
+
+.meal-card-emoji {
+    font-size: 2.4rem;
+    line-height: 1;
+    margin-bottom: 0.2rem;
+}
+
+.meal-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.meal-card-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.meal-card-check {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    opacity: 0;
+    transform: scale(0.5) rotate(-10deg);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.meal-card.active .meal-card-check {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* ── Navigation buttons ──────────────────────────────────── */
+.step-nav {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.btn-next {
+    flex: 2;
+    padding: 0.9rem 1.5rem;
+    background: linear-gradient(135deg, #DB7093, #c2547a);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 0.02em;
+    transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(219, 112, 147, 0.35);
+}
+
+.btn-next:hover:not(:disabled) {
+    opacity: 0.93;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(219, 112, 147, 0.4);
+}
+
+.btn-next:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-back {
+    flex: 1;
+    padding: 0.9rem 1rem;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.btn-back:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(219, 112, 147, 0.04);
+}
+
+/* Spinner inside button */
+.btn-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Error ───────────────────────────────────────────────── */
+.form-error {
+    background: #fff0f0;
+    border: 1px solid #f8c8c8;
+    color: #c0392b;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+/* ── Review list ─────────────────────────────────────────── */
+.review-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(219, 112, 147, 0.15);
+}
+
+.review-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 1.25rem;
+    background: white;
+    border-bottom: 1px solid rgba(219, 112, 147, 0.08);
+}
+
+.review-list li:last-child {
+    border-bottom: none;
+}
+
+.review-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+}
+
+.review-value {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    text-align: right;
+    max-width: 60%;
+}
+
+/* ── Success screen ──────────────────────────────────────── */
+.success-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0 0.5rem;
+    animation: fadeSlideIn 0.5s ease both;
+}
+
+.success-confetti {
+    font-size: 3.5rem;
+    margin-bottom: 0.75rem;
+    animation: confettiBounce 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both 0.1s;
+}
+
+@keyframes confettiBounce {
+    from { transform: scale(0) rotate(-15deg); opacity: 0; }
+    to   { transform: scale(1) rotate(0deg);  opacity: 1; }
+}
+
+.success-title {
+    margin-bottom: 0.5rem;
+}
+
+.success-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    text-align: center;
+    margin: 0 0 2rem;
+    line-height: 1.6;
+}
+
+/* Tips card */
+.tips-card {
+    width: 100%;
+    background: linear-gradient(135deg, #fff8fb 0%, #fff0f5 100%);
+    border: 1px solid rgba(219, 112, 147, 0.15);
+    border-radius: 16px;
+    padding: 1.75rem;
+}
+
+.tips-heading {
+    font-family: 'Playfair Display', serif;
+    color: var(--accent);
+    font-size: 1.2rem;
+    margin: 0 0 1.25rem;
+    text-align: center;
+    letter-spacing: -0.01em;
+}
+
+.tips-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.tips-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.tip-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.tips-item div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.tips-item strong {
+    font-size: 0.88rem;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+.tips-item p {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* ── Legacy submit-button (kept for safety) ──────────────── */
+.submit-button {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-family: 'Playfair Display', serif;
+}
+
+.submit-button:hover {
+    background-color: #c2547a;
+    transform: translateY(-2px);
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .rsvp-container {
+        padding: 2rem 1.5rem;
+        border-radius: 18px;
+    }
+
+    .rsvp-title {
+        font-size: 1.8rem;
+    }
+
+    .meal-card-container {
+        grid-template-columns: 1fr;
+    }
+
+    .progress-dot-label {
+        display: none;
+    }
+}
