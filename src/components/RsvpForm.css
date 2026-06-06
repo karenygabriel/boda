@@ -187,6 +187,32 @@
     box-shadow: 0 0 0 4px rgba(219, 112, 147, 0.12);
 }
 
+/* ── Food intro banner ───────────────────────────────────── */
+.food-intro-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    background: linear-gradient(135deg, rgba(219, 112, 147, 0.08), rgba(219, 112, 147, 0.04));
+    border: 1px solid rgba(219, 112, 147, 0.2);
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    margin: 2rem 0 1rem;
+}
+
+.food-intro-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.food-intro-text {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    font-style: italic;
+}
+
 /* ── Meal cards ──────────────────────────────────────────── */
 .meal-card-container {
     display: grid;

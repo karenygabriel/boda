@@ -19,7 +19,7 @@ const starters: Option[] = [
 
 const mainCourses: Option[] = [
     { value: 'camarones_pasta', label: 'Camarones Gratinados con Pasta', description: 'Camarones al ajillo con pasta artesanal', emoji: '🍝' },
-    { value: 'arroz_chicharron', label: 'Arroz con Chicharrón', description: 'Arroz tradicional con chicharrón crujiente', emoji: '🍚' },
+    { value: 'arroz_chicharron', label: 'Chicharron de pescado', description: 'Arroz tradicional con chicharrón crujiente', emoji: '🍚' },
 ];
 
 const lateNightSnacks: Option[] = [
@@ -251,6 +251,12 @@ const RsvpForm: React.FC = () => {
                             {/* ── STEP 1: Name ── */}
                             {step === 1 && (
                                 <div className="form-step">
+                                    <div className="food-intro-banner">
+                                        <span className="food-intro-icon">🍽️</span>
+                                        <p className="food-intro-text">
+                                            Para una mejor experiencia nos gustaría nos especificaras los platillos de tu preferencia y de cada integrante de tu familia, cuidamos cada detalle con amor.
+                                        </p>
+                                    </div>
                                     <p className="step-prompt">¿Cómo te llamas?</p>
                                     <div className="form-group">
                                         <label htmlFor="name">Nombre Completo</label>
