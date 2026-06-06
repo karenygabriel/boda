@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import './RsvpForm.css';
 
 const SCRIPT_URL =
-    'https://script.google.com/macros/s/AKfycbwQKPiK6sUOWDKT5ik7dkZMoODNwaUWv04FOtLd4alrmI_EVlJVMo_aw7YUIdDcIIW7Lw/exec';
+    'https://script.google.com/macros/s/AKfycbzFrZcJMcmpVDVQoVPU5cwlo3c3pfJowAhUZjWJ_9bUgYSuqMuaTgrO9jsNTnTonW871A/exec';
 
 type Option = {
     value: string;
