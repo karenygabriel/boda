@@ -10,6 +10,8 @@ type Event = {
     subtitle?: string;
     description: string | React.ReactNode;
     schedule?: { time: string; label: string }[];
+    /** Alternative schedule shown only to 'familiar' invite type */
+    scheduleGeneral?: { time: string; label: string }[];
     tag?: string;
     tagColor?: string;
     /** Only show this event for the 'familiar' invite type */
@@ -28,34 +30,32 @@ const allEvents: Event[] = [
         description: (
             <>
                 <p>
-                    En la víspera de nuestra boda, queremos compartir con ustedes un encuentro
-                    íntimo, exclusivo pensado para la familia cercana (solo hijos de nuestros
-                    abuelos y sus familias), con el propósito de convivir y estrechar lazos
-                    entre ambas familias.
+                    La noche antes de la boda queremos reunirnos con la familia más cercana para
+                    convivir, reír y comenzar a estrechar lazos entre ambas familias antes del gran día.
                 </p>
                 <p>
-                    De <strong>5:00 p.m. a 6:00 p.m.</strong> se llevará a cabo un brindis
-                    privado tipo cóctel, enfocado en conocernos, descubrir afinidades y "romper
-                    el hielo", por lo que agradecemos su puntualidad.
+                    De <strong>5:00 p.m. a 7:00 p.m.</strong> será un momento íntimo y exclusivo
+                    para la familia cercana — un brindis privado tipo cóctel para conocernos,
+                    descubrir afinidades y romper el hielo. ¡Agradecemos su puntualidad!
                 </p>
                 <p>
-                    De <strong>6:00 p.m. a 9:00 p.m.</strong>, será abierto para cualquier otro
-                    invitado. El ambiente será tranquilo y relajado en compañía de música bohemia
-                    en vivo, con un cierre temprano pensado para descansar adecuadamente previo
-                    al gran día.
+                    De <strong>7:00 p.m. a 9:00 p.m.</strong> el encuentro se abre para todos
+                    los invitados que quieran acompañarnos. El ambiente será relajado con
+                    música bohemia en vivo y algunos snacks para picar. No habrá cena como tal
+                    — el plan es descansar bien y llegar frescos al día siguiente. ✨
                 </p>
             </>
         ),
         schedule: [
-            { time: '5:00 pm', label: 'Brindis privado familiar · Solo familia cercana 🤫' },
-            { time: '6:00 pm', label: 'Apertura a todos los invitados · Música bohemia en vivo' },
+            { time: '5:00 pm', label: 'Brindis privado · Solo familia cercana 🤋' },
+            { time: '7:00 pm', label: 'Apertura para todos los invitados · Música bohemia en vivo + snacks 🍟' },
             { time: '9:00 pm', label: 'Cierre — ¡a descansar para mañana! 🌙' },
         ],
     },
     {
         id: 'boda',
         date: 'Viernes 06 de Noviembre',
-        emoji: '💒',
+        emoji: '📒',
         title: 'La Boda',
         tag: 'El gran día',
         tagColor: '#DB7093',
@@ -67,6 +67,7 @@ const allEvents: Event[] = [
                 </p>
             </>
         ),
+        // Familiar invite: includes family photo session + break
         schedule: [
             { time: '1:20 pm', label: 'Sesión de fotografías con familia cercana: abuelos, tíos, nietos y retratos por familia 📸' },
             { time: '2:20 pm', label: 'Receso · Aperitivo ligero, retoques y últimos detalles' },
@@ -75,7 +76,16 @@ const allEvents: Event[] = [
             { time: '6:00 pm', label: 'Banquete 🍽️' },
             { time: '7:30 pm', label: 'Vals de novios y padres 🌙' },
             { time: '8:10 pm', label: 'Se abre la pista con DJ 🎶' },
-            { time: '11:00 pm', label: 'Snack nocturno "Desayuno de desvelados" · Ambiente relajado sin límite de tiempo 🌮' },
+            { time: '11:00 pm', label: 'Snack nocturno “Desayuno de desvelados” 🌮' },
+        ],
+        // General invite: starts at the ceremony
+        scheduleGeneral: [
+            { time: '3:30 pm', label: 'Ceremonia 🕊️' },
+            { time: '5:15 pm', label: 'Brindis al atardecer en el muelle 🌄' },
+            { time: '6:00 pm', label: 'Banquete 🍽️' },
+            { time: '7:30 pm', label: 'Vals de novios y padres 🌙' },
+            { time: '8:10 pm', label: 'Se abre la pista con DJ 🎶' },
+            { time: '11:00 pm', label: 'Snack nocturno “Desayuno de desvelados” 🌮' },
         ],
     },
     {
@@ -109,11 +119,18 @@ const allEvents: Event[] = [
 
 // ── Sub-components ───────────────────────────────────────────────────────────
 
-const EventCard: React.FC<{ event: Event; isOpen: boolean; onToggle: () => void }> = ({
+const EventCard: React.FC<{ event: Event; isOpen: boolean; onToggle: () => void; inviteType: 'familiar' | 'general' }> = ({
     event,
     isOpen,
     onToggle,
-}) => (
+    inviteType,
+}) => {
+    // Use scheduleGeneral for non-family guests when available
+    const schedule = (inviteType === 'general' && event.scheduleGeneral)
+        ? event.scheduleGeneral
+        : event.schedule;
+
+    return (
     <article className={`event-card ${isOpen ? 'event-card--open' : ''}`} id={`event-${event.id}`}>
         <button className="event-card__header" onClick={onToggle} aria-expanded={isOpen}>
             <div className="event-card__header-left">
@@ -141,11 +158,11 @@ const EventCard: React.FC<{ event: Event; isOpen: boolean; onToggle: () => void 
         <div className="event-card__body" aria-hidden={!isOpen}>
             <div className="event-card__description">{event.description}</div>
 
-            {event.schedule && (
+            {schedule && (
                 <div className="event-timeline">
                     <h4 className="event-timeline__heading">Cronograma</h4>
                     <ol className="event-timeline__list">
-                        {event.schedule.map((item, i) => (
+                        {schedule.map((item, i) => (
                             <li key={i} className="event-timeline__item">
                                 <span className="event-timeline__time">{item.time}</span>
                                 <span className="event-timeline__dot" />
@@ -157,7 +174,8 @@ const EventCard: React.FC<{ event: Event; isOpen: boolean; onToggle: () => void 
             )}
         </div>
     </article>
-);
+    );
+};
 
 // ── Main Section ─────────────────────────────────────────────────────────────
 
@@ -194,6 +212,7 @@ const EventsSection: React.FC = () => {
                             event={event}
                             isOpen={openId === event.id}
                             onToggle={() => toggle(event.id)}
+                            inviteType={inviteType}
                         />
                     ))}
                 </div>

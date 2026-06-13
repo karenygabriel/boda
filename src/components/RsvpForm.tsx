@@ -136,7 +136,7 @@ const SuccessScreen: React.FC = () => (
                     <span className="tip-icon">🚗</span>
                     <div>
                         <strong>Estacionamiento</strong>
-                        <p>Hay valet parking disponible en la entrada principal. Llega con 15 min de anticipación.</p>
+                        <p>No hay valet parking y el espacio es limitado. Te recomendamos llegar con tiempo o coordinar con otros invitados para compartir el viaje.</p>
                     </div>
                 </li>
                 <li className="tips-item">
@@ -150,14 +150,14 @@ const SuccessScreen: React.FC = () => (
                     <span className="tip-icon">👗</span>
                     <div>
                         <strong>Código de vestimenta</strong>
-                        <p>Formal. Les pedimos respetar el código de color de la novia.</p>
+                        <p>Formal. El color rosa está reservado para los novios y el blanco para la novia 💕</p>
                     </div>
                 </li>
                 <li className="tips-item">
                     <span className="tip-icon">📸</span>
                     <div>
-                        <strong>Fotografías</strong>
-                        <p>Por favor guarden sus teléfonos durante la ceremonia. ¡Habrá fotógrafo profesional!</p>
+                        <strong>Comparte tus fotos</strong>
+                        <p>¡No olvides descargar <strong>Memorize Dots</strong> para subir y compartir todas tus fotos de la noche con nosotros! 🌟</p>
                     </div>
                 </li>
                 <li className="tips-item">
