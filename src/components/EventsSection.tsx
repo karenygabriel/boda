@@ -76,7 +76,7 @@ const allEvents: Event[] = [
             { time: '6:00 pm', label: 'Banquete 🍽️' },
             { time: '7:30 pm', label: 'Vals de novios y padres 🌙' },
             { time: '8:10 pm', label: 'Se abre la pista con DJ 🎶' },
-            { time: '11:00 pm', label: 'Snack nocturno “Desayuno de desvelados” 🌮' },
+            { time: '11:00 pm', label: 'Cena de desvelados 🌮' },
         ],
         // General invite: starts at the ceremony
         scheduleGeneral: [
@@ -85,7 +85,7 @@ const allEvents: Event[] = [
             { time: '6:00 pm', label: 'Banquete 🍽️' },
             { time: '7:30 pm', label: 'Vals de novios y padres 🌙' },
             { time: '8:10 pm', label: 'Se abre la pista con DJ 🎶' },
-            { time: '11:00 pm', label: 'Snack nocturno “Desayuno de desvelados” 🌮' },
+            { time: '11:00 pm', label: 'Cena de desvelados 🌮' },
         ],
     },
     {

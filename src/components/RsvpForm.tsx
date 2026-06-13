@@ -311,10 +311,10 @@ const RsvpForm: React.FC = () => {
                                 </div>
                             )}
 
-                            {/* ── STEP 4: Late Night (Desayuno de Desvelados) ── */}
+                            {/* ── STEP 4: Late Night (Cena de Desvelados) ── */}
                             {step === 4 && (
                                 <div className="form-step">
-                                    <p className="step-prompt">Desayuno de desvelados 🌙</p>
+                                    <p className="step-prompt">Cena de desvelados 🌙</p>
                                     <p className="step-subprompt">¿Qué quieres comer cuando el sol salga?</p>
                                     <CardGrid
                                         options={lateNightSnacks}
