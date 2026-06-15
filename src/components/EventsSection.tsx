@@ -9,8 +9,10 @@ type Event = {
     title: string;
     subtitle?: string;
     description: string | React.ReactNode;
+    /** Alternative description shown to 'general' invite type */
+    descriptionGeneral?: string | React.ReactNode;
     schedule?: { time: string; label: string }[];
-    /** Alternative schedule shown only to 'familiar' invite type */
+    /** Alternative schedule shown to 'general' invite type */
     scheduleGeneral?: { time: string; label: string }[];
     tag?: string;
     tagColor?: string;
@@ -24,9 +26,9 @@ const allEvents: Event[] = [
         date: 'Jueves 05 de Noviembre',
         emoji: '🍷',
         title: 'Rompe Hielos',
-        tag: 'Noche previa · Solo familia',
+        tag: 'Noche previa',
         tagColor: '#8B5CF6',
-        familiarOnly: true,
+        // VIP (familiar): full description with charcutería mention + both time slots
         description: (
             <>
                 <p>
@@ -35,20 +37,41 @@ const allEvents: Event[] = [
                 </p>
                 <p>
                     De <strong>5:00 p.m. a 7:00 p.m.</strong> será un momento íntimo y exclusivo
-                    para la familia cercana — un brindis privado tipo cóctel para conocernos,
-                    descubrir afinidades y romper el hielo. ¡Agradecemos su puntualidad!
+                    para la familia cercana — un brindis privado tipo cóctel con charcutería
+                    (tabla de quesos) para conocernos, descubrir afinidades y romper el hielo.
+                    ¡Agradecemos su puntualidad!
                 </p>
                 <p>
                     De <strong>7:00 p.m. a 9:00 p.m.</strong> el encuentro se abre para todos
-                    los invitados que quieran acompañarnos. El ambiente será relajado con
-                    música bohemia en vivo y algunos snacks para picar. No habrá cena como tal
-                    — el plan es descansar bien y llegar frescos al día siguiente. ✨
+                    los invitados. El ambiente será relajado con música bohemia en vivo y algunos
+                    snacks para picar. No habrá cena como tal — el plan es descansar bien y
+                    llegar frescos al día siguiente. ✨
                 </p>
             </>
         ),
+        // General invite: only sees the open 7-9pm portion
+        descriptionGeneral: (
+            <>
+                <p>
+                    La noche antes de la boda los invitamos a acompañarnos en un momento relajado
+                    y especial. El ambiente será tranquilo, con música bohemia en vivo y algunos
+                    snacks para picar — perfecto para convivir y prepararse para el gran día.
+                </p>
+                <p>
+                    De <strong>7:00 p.m. a 9:00 p.m.</strong> Cierre temprano para descansar
+                    bien. ✨
+                </p>
+            </>
+        ),
+        // VIP schedule: both time slots
         schedule: [
-            { time: '5:00 pm', label: 'Brindis privado · Solo familia cercana 🤋' },
+            { time: '5:00 pm', label: 'Brindis privado familiar · Charcutería y cóctel 🧀' },
             { time: '7:00 pm', label: 'Apertura para todos los invitados · Música bohemia en vivo + snacks 🍟' },
+            { time: '9:00 pm', label: 'Cierre — ¡a descansar para mañana! 🌙' },
+        ],
+        // General schedule: 7-9pm only
+        scheduleGeneral: [
+            { time: '7:00 pm', label: 'Música bohemia en vivo + snacks 🍟' },
             { time: '9:00 pm', label: 'Cierre — ¡a descansar para mañana! 🌙' },
         ],
     },
@@ -125,7 +148,10 @@ const EventCard: React.FC<{ event: Event; isOpen: boolean; onToggle: () => void;
     onToggle,
     inviteType,
 }) => {
-    // Use scheduleGeneral for non-family guests when available
+    // Pick description and schedule based on invite type
+    const description = (inviteType === 'general' && event.descriptionGeneral)
+        ? event.descriptionGeneral
+        : event.description;
     const schedule = (inviteType === 'general' && event.scheduleGeneral)
         ? event.scheduleGeneral
         : event.schedule;
@@ -156,7 +182,7 @@ const EventCard: React.FC<{ event: Event; isOpen: boolean; onToggle: () => void;
         </button>
 
         <div className="event-card__body" aria-hidden={!isOpen}>
-            <div className="event-card__description">{event.description}</div>
+            <div className="event-card__description">{description}</div>
 
             {schedule && (
                 <div className="event-timeline">
@@ -201,7 +227,7 @@ const EventsSection: React.FC = () => {
 
                 {inviteType === 'familiar' && (
                     <div className="invite-badge invite-badge--familiar">
-                        👨‍👩‍👧‍👦 Invitación familiar — incluye Rompe Hielos y sesión fotográfica exclusiva
+                        👨‍👩‍👧‍👦 Invitación familiar — incluye sesión fotográfica exclusiva y Rompe Hielos privado
                     </div>
                 )}
 
