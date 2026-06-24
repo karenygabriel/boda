@@ -167,6 +167,16 @@ const SuccessScreen: React.FC = () => (
                         <p>La ceremonia comienza puntualmente. Te esperamos 30 minutos antes.</p>
                     </div>
                 </li>
+                <li className="tips-item">
+                    <span className="tip-icon">👮🏽‍♂️</span>
+                    <div>
+                        <strong>Evento para adultos</strong>
+                        <p>Por la seguridad de todos, ya que nuestra celebración se realizará a pie de laguna, será un evento principalmente para adultos las únicas excepciones serán nuestros sobrinos y primos más cercanos, quienes contarán con actividades y supervisión especial.
+                            <br />
+                            Agradecemos su comprensión, valoramos mucho los esfuerzos implicados en su asistencia y esperamos que disfruten con nosotros una noche inolvidable✨
+                        </p>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -311,10 +321,10 @@ const RsvpForm: React.FC = () => {
                                 </div>
                             )}
 
-                            {/* ── STEP 4: Late Night (Cena de Desvelados) ── */}
+                            {/* ── STEP 4: Desayuno tornaboda ── */}
                             {step === 4 && (
                                 <div className="form-step">
-                                    <p className="step-prompt">Cena de desvelados 🌙</p>
+                                    <p className="step-prompt">Desayuno tornaboda 🍽️</p>
                                     <p className="step-subprompt">¿Qué quieres comer cuando el sol salga?</p>
                                     <CardGrid
                                         options={lateNightSnacks}
